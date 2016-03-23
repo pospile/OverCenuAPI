@@ -29,7 +29,6 @@ var skrap = function (callback) {
 							//console.log(product);
 						});
 						product_id++;
-						continue;
 					});
 				});
 			});
