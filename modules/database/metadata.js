@@ -16,17 +16,22 @@ var IncreaseCategoryCount = function () {
 };
 
 var SaveMetadata = function () {
-	 var fs = require('fs');
-	 fs.writeFile("metadata.json", JSON.stringify(data), function(err) {
-	 if(err) {
-	 return console.log(err);
-	 }
-	 console.log("Metadata saved succesfully.");
-	 });
+	var fs = require('fs');
+	fs.writeFile("./modules/database/metadata.json", JSON.stringify(metadata), function(err) {
+		if(err)
+		{
+			return console.log(err);
+		}
+		else
+		{
+			console.log("Metadata saved succesfully.");
+		}
+	});
 }
 
 
 exports.GetMetadata = function (callback) {
+	console.log(metadata);
 	callback(metadata);
 };
 exports.IncreaseProductCount = function () {

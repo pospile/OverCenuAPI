@@ -3,6 +3,7 @@ var db = require('orchestrate')("6c4cda6a-17f3-4e29-90b6-2d0ad15fb146");
 
 
 var CreateCategory = function (id, name, callback) {
+	console.log("Creating category: " + name);
 	db.post('category', {
 		"id": id,
 		"name": name
@@ -25,7 +26,7 @@ var FindByID = function (id, callback) {
 }
 
 exports.CreateCategory = function (id, name, callback) {
-	CreateCategory(id, callback);
+	CreateCategory(id, name, callback);
 }
 exports.FindByID = function (id, callback) {
 	FindByID(id, callback);

@@ -1,23 +1,35 @@
 var Xray = require('x-ray');
 var x = Xray();
 
+var database = require("../database/database.js");
 
 var skrap = function (callback) {
-	x('http://www.akcniceny.cz/zbozi/hledej/sk-potraviny/p/1', {
-		urls: x('.zboziVypis', [{
-			url: '.zboziImg@href'
-		}])
-	})(function(err, obj) {
-		console.log(err);
-		console.log(obj);
+	var product_id;
+	var category_id;
+	database.CreateCategory("food", function (res) {
+		console.log(res);
+		category_id = res.body.id;
+		for (var i = 1; i < 400; i++)
+		{
+			x('http://www.akcniceny.cz/zbozi/hledej/sk-potraviny/p/' + i, {
+				urls: x('.zboziVypis', [{
+					url: '.zboziImg@href'
+				}])
+			})(function(err, obj) {
+				//console.log(err);
+				//console.log(obj);
 
-		obj.urls.forEach(function (data) {
-			skrap_detail(data.url, false, function (product) {
-				//console.log(product);
+				obj.urls.forEach(function (data) {
+					skrap_detail(data.url, false, function (product) {
+						database.CreateProduct(product.product.name, product_id, category_id, product.product.image, 0, function () {
+							console.log(product);
+						});
+						product_id++;
+					});
+				});
 			});
-		})
-
-	})
+		}
+	});
 };
 
 var skrap_detail = function (url, alternative, callback) {
@@ -33,7 +45,7 @@ var skrap_detail = function (url, alternative, callback) {
 			})
 		})(function(err, obj) {
 			obj.product.sale = obj.product.sale.split("-")[1];
-			console.log(obj);
+			//console.log(obj);
 			callback(obj);
 		})
 	}
@@ -55,7 +67,7 @@ var skrap_detail = function (url, alternative, callback) {
 			}
 			else
 			{
-				console.log(obj);
+				//console.log(obj);
 				callback(obj);
 			}
 		})
@@ -63,5 +75,6 @@ var skrap_detail = function (url, alternative, callback) {
 }
 
 exports.skrap = function (callback) {
+	console.log("Loading skrap library");
 	skrap(callback);
 };

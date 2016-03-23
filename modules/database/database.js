@@ -13,9 +13,9 @@ exports.SearchById = function (id, callback) {
 };
 
 exports.CreateCategory = function (name, callback) {
+	metadata.IncreaseCategoryCount();
 	metadata.GetMetadata(function (data) {
 		category.CreateCategory(data.category_count, name, callback);
-		metadata.IncreaseCategoryCount();
 	})
 };
 exports.FindByID = function (id, callback) {
