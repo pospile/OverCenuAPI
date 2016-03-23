@@ -7,7 +7,7 @@ var skrap = function (callback) {
 	var product_id = 0;
 	var category_id;
 	database.CreateCategory("food", function (res) {
-		console.log(res);
+		//console.log(res);
 		category_id = res.body.id;
 		for (var i = 1; i < 400; i++)
 		{
@@ -20,8 +20,6 @@ var skrap = function (callback) {
 				{
 					console.log(err);
 				}
-				//console.log(err);
-				//console.log(obj);
 
 				obj.urls.forEach(function (data) {
 					skrap_detail(data.url, false, function (product) {

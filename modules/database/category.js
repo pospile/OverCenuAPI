@@ -3,7 +3,6 @@ var db = require('orchestrate')("6c4cda6a-17f3-4e29-90b6-2d0ad15fb146");
 
 
 var CreateCategory = function (id, name, callback) {
-	//console.log("Creating category: " + name);
 	db.post('category', {
 		"id": id,
 		"name": name

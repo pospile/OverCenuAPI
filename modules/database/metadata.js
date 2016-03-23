@@ -31,7 +31,6 @@ var SaveMetadata = function () {
 
 
 exports.GetMetadata = function (callback) {
-	console.log(metadata);
 	callback(metadata);
 };
 exports.IncreaseProductCount = function () {
