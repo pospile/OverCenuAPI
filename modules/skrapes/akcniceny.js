@@ -22,6 +22,7 @@ var skrap = function (callback) {
 				}
 
 				obj.urls.forEach(function (data) {
+					console.log(data.url);
 					skrap_detail(data.url, false, function (product) {
 						database.CreateProduct(product.product.name, product_id, category_id, product.product.image, 0, function () {
 							//console.log(product);
