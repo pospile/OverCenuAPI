@@ -16,6 +16,10 @@ var skrap = function (callback) {
 					url: '.zboziImg@href'
 				}])
 			})(function(err, obj) {
+				if (err)
+				{
+					console.log(err);
+				}
 				//console.log(err);
 				//console.log(obj);
 
@@ -25,6 +29,7 @@ var skrap = function (callback) {
 							//console.log(product);
 						});
 						product_id++;
+						continue;
 					});
 				});
 			});
