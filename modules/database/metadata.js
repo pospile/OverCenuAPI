@@ -24,7 +24,7 @@ var SaveMetadata = function () {
 		}
 		else
 		{
-			console.log("Metadata saved succesfully.");
+			//console.log("Metadata saved succesfully.");
 		}
 	});
 }

@@ -4,7 +4,7 @@ var x = Xray();
 var database = require("../database/database.js");
 
 var skrap = function (callback) {
-	var product_id;
+	var product_id = 0;
 	var category_id;
 	database.CreateCategory("food", function (res) {
 		console.log(res);
@@ -22,7 +22,7 @@ var skrap = function (callback) {
 				obj.urls.forEach(function (data) {
 					skrap_detail(data.url, false, function (product) {
 						database.CreateProduct(product.product.name, product_id, category_id, product.product.image, 0, function () {
-							console.log(product);
+							//console.log(product);
 						});
 						product_id++;
 					});

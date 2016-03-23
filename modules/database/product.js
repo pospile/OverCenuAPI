@@ -3,7 +3,7 @@ var dateFormat = require('dateformat');
 
 var CreateProduct = function (name, id, category, path, user_id, callback) {
 	var now = new Date();
-	console.log("Creating: " + name + " path: " + path + " id: " + user_id);
+	//console.log("Creating: " + name + " path: " + path + " id: " + user_id);
 	db.post('product', {
 		//type: img/vid
 		"category": category,
