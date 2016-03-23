@@ -9,7 +9,7 @@ var skrap = function (callback) {
 	database.CreateCategory("food", function (res) {
 		//console.log(res);
 		category_id = res.body.id;
-		for (var i = 1; i < 400; i++)
+		for (var i = 1; i < 289; i++)
 		{
 			x('http://www.akcniceny.cz/zbozi/hledej/sk-potraviny/p/' + i, {
 				urls: x('.zboziVypis', [{
