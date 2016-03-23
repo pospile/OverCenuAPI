@@ -19,7 +19,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "node bin test",
-    "start": "node skrap"
+    "start": "node bin.js"
   },
   "keywords": [
     "Cloud",

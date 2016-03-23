@@ -12,24 +12,54 @@ var skrap = function (callback) {
 		console.log(obj);
 
 		obj.urls.forEach(function (data) {
-			skrap_detail(data.url, function (product) {
-				console.log(product);
+			skrap_detail(data.url, false, function (product) {
+				//console.log(product);
 			});
 		})
 
 	})
 };
 
-var skrap_detail = function (url, callback) {
-	x(url, {
-		product: x('.zboziDetail', [{
-			name: '.infoBox h2',
-			image: '.in img@src',
-			seller: '.prodejnaName span'
-		}])
-	})(function(err, obj) {
-		console.log(obj);
-	})
+var skrap_detail = function (url, alternative, callback) {
+	if (alternative)
+	{
+		x(url, {
+			product: x('.zboziDetail', {
+				name: '.infoBox h1',
+				image: '.in img@src',
+				seller: '.produkty a[itemprop="url"]@title',
+				price: '.produkty tr[itemprop="offers"] .alCenter .price',
+				sale: '.produkty tr[itemprop="offers"] .alCenter .discount'
+			})
+		})(function(err, obj) {
+			obj.product.sale = obj.product.sale.split("-")[1];
+			console.log(obj);
+			callback(obj);
+		})
+	}
+	else
+	{
+		x(url, {
+			product: x('.zboziDetail', {
+				name: '.infoBox h2',
+				image: '.in img@src',
+				seller: '.prodejnaName span',
+				price: '.akcniCena span[itemprop="price"]@content',
+				old_price: '.puvCena .preskrt'
+			})
+		})(function(err, obj) {
+			if (obj.product.name == undefined)
+			{
+				skrap_detail(url, true, callback);
+				return;
+			}
+			else
+			{
+				console.log(obj);
+				callback(obj);
+			}
+		})
+	}
 }
 
 exports.skrap = function (callback) {

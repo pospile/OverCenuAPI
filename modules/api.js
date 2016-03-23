@@ -27,7 +27,7 @@ var Start = function () {
 		next();
 	});
 
-	var port = 80;
+	var port = process.env.port || 80;
 
 
 	var server = app.listen(port, function () {

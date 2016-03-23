@@ -32,7 +32,7 @@ var FindByID = function (id, callback) {
 		});
 }
 
-exports.CreateProduct(name, id, category, path, user_id, callback)
+exports.CreateProduct = function(name, id, category, path, user_id, callback)
 {
 	CreateProduct(name, id, category,path, user_id, callback);
 }
