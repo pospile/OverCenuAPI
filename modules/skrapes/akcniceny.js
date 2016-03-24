@@ -24,7 +24,20 @@ var skrap = function (callback) {
 				obj.urls.forEach(function (data) {
 					console.log(data.url);
 					skrap_detail(data.url, false, function (product) {
-						database.CreateProduct(product.product.name, product_id, category_id, product.product.image, 0, function () {
+						var product = product.product;
+
+						if (product.alt)
+						{
+							// Výpoèet staré ceny z procenta
+							// (cena / %) * 100
+							product.old_price = (product.price / product.sale) * 100;
+						}
+						else
+						{
+							product.sale = Math.round(product.price / (product.old_price / 100));
+						}
+
+						database.CreateProduct(product.name, product_id, category_id, product.image, 0,product.price,product.sale, product.old_price, product.seller, function () {
 							//console.log(product);
 						});
 						product_id++;
@@ -47,7 +60,8 @@ var skrap_detail = function (url, alternative, callback) {
 				sale: '.produkty tr[itemprop="offers"] .alCenter .discount'
 			})
 		})(function(err, obj) {
-			obj.product.sale = obj.product.sale.split("-")[1];
+			obj.product.sale = obj.product.sale.split("-")[1].split("%")[0];
+			obj.product.alt = true;
 			//console.log(obj);
 			callback(obj);
 		})
@@ -71,6 +85,7 @@ var skrap_detail = function (url, alternative, callback) {
 			else
 			{
 				//console.log(obj);
+				obj.product.alt = false;
 				callback(obj);
 			}
 		})
