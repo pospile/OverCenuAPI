@@ -71,7 +71,7 @@ var Api = function (app) {
 	app.get('/api/product/:id', function (req, res) {
 		console.log("Returning 5 post from page: " + req.params.id);
 		database.SearchById(req.params.id, function (data) {
-			res.json(data.value);
+			res.json(data);
 		});
 	});
 
