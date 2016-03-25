@@ -6,10 +6,10 @@ var database = require("../database/database.js");
 var skrap = function (callback) {
 	var product_id = 0;
 	var category_id;
-	database.CreateCategory("food", function (res) {
-		//console.log(res);
-		category_id = res.body.id;
-		for (var i = 1; i < 2; i++)
+	database.CreateCategory("food", function (data) {
+		//console.log(data);
+		category_id = data;
+		for (var i = 1; i < 292; i++)
 		{
 			x('http://www.akcniceny.cz/zbozi/hledej/sk-potraviny/p/' + i, {
 				urls: x('.zboziVypis', [{
@@ -41,9 +41,12 @@ var skrap = function (callback) {
 							product.sale = product.price / product.old_price * 100;
 						}
 						//console.log(product);
+
+
 						database.CreateProduct(product.name, product_id, category_id, product.image, 0,product.price,product.sale, product.old_price, product.seller, function () {
-							console.log(product);
+							//console.log(product);
 						});
+
 						product_id++;
 					});
 				});

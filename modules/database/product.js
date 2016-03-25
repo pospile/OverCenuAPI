@@ -2,6 +2,17 @@ var db = require('orchestrate')("6c4cda6a-17f3-4e29-90b6-2d0ad15fb146");
 var dateFormat = require('dateformat');
 
 var CreateProduct = function (name, id, category, path, user_id, price, discount, oldprice, seller, callback) {
+
+	if (!name || !id||!category||!path||!user_id||!price||!discount||!oldprice||!seller)
+	{
+		/*
+		console.log("--------------");
+		console.log("ERROR: Data missing");
+		console.log(id, name, category, path, user_id,price,discount,oldprice,seller);
+		console.log("--------------");
+		*/
+	}
+
 	var now = new Date();
 	db.post('product', {
 		//type: img/vid
@@ -35,9 +46,9 @@ var FindByID = function (id, callback) {
 		});
 }
 
-exports.CreateProduct = function(name, id, category, path, user_id, callback)
+exports.CreateProduct = function(name, id, category, path, user_id, price, discount, oldprice, seller, callback)
 {
-	CreateProduct(name, id, category,path, user_id, callback);
+	CreateProduct(name, id, category, path, user_id, price, discount, oldprice, seller, callback);
 }
 exports.FindByID = function (id, callback) {
 	FindByID(id, callback);
