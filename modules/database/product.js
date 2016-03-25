@@ -42,6 +42,7 @@ var FindByID = function (id, callback) {
 		.limit(10)
 		.query('value.id:'+id)
 		.then(function (res) {
+			console.log(res.body);
 			callback(res.body);
 		});
 }
